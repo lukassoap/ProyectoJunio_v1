@@ -12,6 +12,8 @@ class TTipoController extends Controller
     public function index()
     {
         //
+        return view('ttipo.index');
+
     }
 
     /**
@@ -20,6 +22,8 @@ class TTipoController extends Controller
     public function create()
     {
         //
+        return view('ttipo.create');
+
     }
 
     /**
@@ -28,6 +32,18 @@ class TTipoController extends Controller
     public function store(Request $request)
     {
         //
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
+        ]);
+        // Create a new TTipo instance and save it
+        $ttipo = new \App\Models\TTipo();
+        $ttipo->name = $request->input('name');
+        $ttipo->description = $request->input('description');
+        $ttipo->save();
+        // Redirect to the index page with a success message
+        return redirect()->route('ttipo.index')->with('success', 'TTipo created successfully.');
     }
 
     /**
@@ -36,6 +52,8 @@ class TTipoController extends Controller
     public function show(string $id)
     {
         //
+        $ttipo = \App\Models\TTipo::findOrFail($id);
+        return view('ttipo.show', compact('ttipo'));
     }
 
     /**
@@ -44,6 +62,8 @@ class TTipoController extends Controller
     public function edit(string $id)
     {
         //
+        $ttipo = \App\Models\TTipo::findOrFail($id);
+        return view('ttipo.edit', compact('ttipo'));
     }
 
     /**
@@ -52,6 +72,15 @@ class TTipoController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
+        ]);
+        $ttipo = \App\Models\TTipo::findOrFail($id);
+        $ttipo->name = $request->input('name');
+        $ttipo->description = $request->input('description');
+        $ttipo->save();
+        return redirect()->route('ttipo.index')->with('success', 'TTipo updated successfully.');
     }
 
     /**
@@ -60,5 +89,8 @@ class TTipoController extends Controller
     public function destroy(string $id)
     {
         //
+        $ttipo = \App\Models\TTipo::findOrFail($id);
+        $ttipo->delete();
+        return redirect()->route('ttipo.index')->with('success', 'TTipo deleted successfully.');
     }
 }
