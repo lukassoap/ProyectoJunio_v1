@@ -3,62 +3,77 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Usuario;
 
 class UsuarioController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show the login form.
      */
-    public function index()
+    public function showLoginForm()
     {
-        //
+        return view('usuario.login');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Handle a login request to the application.
      */
-    public function create()
+    public function login(Request $request)
     {
-        //
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended(route('tramite.index'));
+        }
+
+        return back()->withErrors([
+            'email' => 'Credenciales inválidas.',
+        ])->onlyInput('email');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Log the user out of the application.
      */
-    public function store(Request $request)
+    public function logout(Request $request)
     {
-        //
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('usuario.login');
     }
 
     /**
-     * Display the specified resource.
+     * Show the user registration form.
      */
-    public function show(string $id)
+    public function showRegisterForm()
     {
-        //
+        return view('usuario.register');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Handle a registration request for the application.
      */
-    public function edit(string $id)
+    public function register(Request $request)
     {
-        //
-    }
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:usuarios,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $user = Usuario::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated['password']),
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Auth::login($user);
+        return redirect()->route('tramite.index');
     }
 }
+
