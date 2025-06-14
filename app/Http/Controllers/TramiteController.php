@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tramite;
+use App\Models\Usuario; // Asegúrate de importar el modelo Usuario si lo necesitas
+use App\Models\TTipo; // Importa el modelo TTipo si es necesario
 
 class TramiteController extends Controller
 {

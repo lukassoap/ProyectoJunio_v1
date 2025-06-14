@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
+use App\Models\Tramite; // Asegúrate de importar el modelo Tramite si lo necesitas
 
 class UsuarioController extends Controller
 {
@@ -67,7 +68,7 @@ class UsuarioController extends Controller
         ]);
 
         $user = Usuario::create([
-            'name' => $validated['name'],
+            'nombre' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
         ]);
