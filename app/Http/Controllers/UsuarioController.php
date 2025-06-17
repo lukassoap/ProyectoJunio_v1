@@ -64,12 +64,14 @@ class UsuarioController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:usuarios,email'],
+            'telefono' => ['nullable', 'string', 'max:20'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $user = Usuario::create([
             'nombre' => $validated['name'],
             'email' => $validated['email'],
+            'telefono' => $validated['telefono'] ?? null,
             'password' => bcrypt($validated['password']),
         ]);
 
