@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Usuario</title>
+    <title>Centro de creación de Trámites - Registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -19,10 +19,10 @@
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="register-container">
-            <h2 class="text-center mb-4">Registro</h2>
+            <h2 class="text-center">Centro de creación de Trámites</h2>
+            <h4 class="text-center mb-4 text-secondary">Registro de Usuario</h4>
 
             @if($errors->any())
                 <div class="alert alert-danger">
@@ -36,27 +36,22 @@
 
             <form action="{{ route('usuario.register') }}" method="POST">
                 @csrf
-
                 <div class="mb-3">
                     <label for="name" class="form-label">Nombre</label>
                     <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
                 </div>
-
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo electrónico</label>
                     <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required>
                 </div>
-
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <input type="password" name="password" id="password" class="form-control" required>
                 </div>
-
                 <div class="mb-3">
                     <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
                     <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
                 </div>
-
                 <div class="d-grid">
                     <button type="submit" class="btn btn-success">Registrarse</button>
                 </div>
@@ -67,7 +62,5 @@
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
