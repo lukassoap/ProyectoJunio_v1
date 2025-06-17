@@ -3,33 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Trámite</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Crear Trámite</h1>
+    <div class="container mt-4">
+        <h2>Crear Trámite</h2>
 
-    @if($errors->any())
-        <div>
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+        <form action="{{ route('tramite.store') }}" method="POST">
+            @csrf
 
-    <form action="{{ route('tramite.store') }}" method="POST">
-        @csrf
-        <div>
-            <label for="titulo">Título:</label>
-            <input type="text" name="titulo" id="titulo" value="{{ old('titulo') }}" required>
-        </div>
-        <div>
-            <label for="descripcion">Descripción:</label>
-            <textarea name="descripcion" id="descripcion" required>{{ old('descripcion') }}</textarea>
-        </div>
-        <button type="submit">Guardar</button>
-    </form>
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" name="titulo" class="form-control" value="{{ old('titulo') }}" required>
+            </div>
 
-    <p><a href="{{ route('tramite.index') }}">Volver a lista</a></p>
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea name="descripcion" class="form-control" required>{{ old('descripcion') }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="t_tipo_id" class="form-label">Tipo de Trámite</label>
+                <select name="t_tipo_id" class="form-select" required>
+                    <option value="">-- Selecciona un tipo --</option>
+                    @foreach ($tipos as $tipo)
+                        <option value="{{ $tipo->id }}" {{ old('t_tipo_id') == $tipo->id ? 'selected' : '' }}>
+                            {{ $tipo->nombre }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            
+
+            <button type="submit" class="btn btn-primary">Guardar Trámite</button>
+        </form>
+    </div>
 </body>
 </html>

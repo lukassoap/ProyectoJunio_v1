@@ -24,28 +24,33 @@ class TramiteController extends Controller
      */
     public function create()
     {
-        return view('tramites.create');
+        $tipos = \App\Models\TTipo::all();
+        return view('tramites.create', compact('tipos'));
     }
 
     /**
      * Store a newly created trámite in storage.
      */
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'titulo' => ['required', 'string', 'max:255'],
-            'descripcion' => ['required', 'string'],
-            // Agrega más reglas si tienes otros campos
-        ]);
+{
+    $validated = $request->validate([
+        'titulo' => ['required', 'string', 'max:255'],
+        'descripcion' => ['required', 'string'],
+        't_tipo_id' => ['required', 'exists:t_tipos,id'],
+        'pagado' => ['nullable', 'boolean'],
+    ]);
 
-        Tramite::create([
-            'titulo' => $validated['titulo'],
-            'descripcion' => $validated['descripcion'],
-            'usuario_id' => Auth::id(),
-        ]);
+    Tramite::create([
+        'titulo' => $validated['titulo'],
+        'descripcion' => $validated['descripcion'],
+        'usuario_id' => Auth::id(),
+        't_tipo_id' => $validated['t_tipo_id'],
+        'pagado' => $request->has('pagado'), // true if checkbox is checked
+    ]);
 
-        return redirect()->route('tramite.index')->with('success', 'Trámite creado correctamente.');
-    }
+    return redirect()->route('tramite.index')->with('success', 'Trámite creado correctamente.');
+}
+
 
     /**
      * Display the specified trámite.
