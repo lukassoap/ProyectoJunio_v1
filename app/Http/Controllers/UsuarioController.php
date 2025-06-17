@@ -28,8 +28,11 @@ class UsuarioController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended(route('tramite.index'));
+        $request->session()->regenerate();
+        $user = Auth::user();
+        $user->conexion = true;
+        $user->save();
+        return redirect()->intended(route('tramite.index'));
         }
 
         return back()->withErrors([
@@ -42,6 +45,11 @@ class UsuarioController extends Controller
      */
     public function logout(Request $request)
     {
+        $user = Auth::user();
+        if ($user) {
+        $user->conexion = false;
+        $user->save();
+        }
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
