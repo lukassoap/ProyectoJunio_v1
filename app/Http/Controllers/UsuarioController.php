@@ -28,8 +28,11 @@ class UsuarioController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended(route('tramite.index'));
+        $request->session()->regenerate();
+        $user = Auth::user();
+        $user->conexion = true;
+        $user->save();
+        return redirect()->intended(route('tramite.index'));
         }
 
         return back()->withErrors([
@@ -42,6 +45,11 @@ class UsuarioController extends Controller
      */
     public function logout(Request $request)
     {
+        $user = Auth::user();
+        if ($user) {
+        $user->conexion = false;
+        $user->save();
+        }
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
@@ -64,12 +72,14 @@ class UsuarioController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:usuarios,email'],
+            'telefono' => ['nullable', 'string', 'max:20'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $user = Usuario::create([
             'nombre' => $validated['name'],
             'email' => $validated['email'],
+            'telefono' => $validated['telefono'] ?? null,
             'password' => bcrypt($validated['password']),
         ]);
 

@@ -16,7 +16,7 @@ class Usuario extends Authenticatable
         'password',
         'conexion',
         'email', //lo de aqui abajo es para el registro
-        'telefono'
+        'telefono',
     ];
     protected $casts = [
     'conexion' => 'boolean'
