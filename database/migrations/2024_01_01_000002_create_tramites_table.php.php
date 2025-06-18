@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('tramites', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
+            $table->text('descripcion');
             $table->unsignedBigInteger('usuario_id');
             $table->unsignedBigInteger('t_tipo_id');
             $table->boolean('pagado')->default(false); // ← This adds the boolean field

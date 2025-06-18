@@ -8,9 +8,11 @@ class Tramite extends Model //quiero que esta tabla tenga varios valores foraneo
 {
     //aqui voy a poner primero los datos del tramite que se ingresaran por el formulario
     protected $fillable = [
-        'usuario_id', // ID del usuario que realiza el trámite
-        'tipo_tramite_id', // ID del tipo de trámite
-        'estado', // Estado del trámite (pendiente, en proceso, completado, etc.)
+        'titulo',
+        'descripcion',
+        'usuario_id',
+        't_tipo_id',
+        'pagado',
     ];
 
     protected $casts = [
