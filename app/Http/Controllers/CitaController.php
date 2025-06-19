@@ -18,10 +18,13 @@ class CitaController extends Controller
 }
 
     public function create()
-    {
-        $tramites = Tramite::all();
-        return view('citas.create', compact('tramites'));
-    }
+{
+    // Sólo los trámites creados por el usuario actual
+    $tramites = auth()->user()->tramites()->orderBy('titulo')->get();
+
+    return view('citas.create', compact('tramites'));
+}
+
 
     public function store(Request $request)
     {
