@@ -1,14 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-
-Route::get('/', function () {
-    return view('welcome');
-});
-=======
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\TramiteController;
+use App\Http\Controllers\CitaController;
 
 // Ruta principal
 Route::get('/', function () {
@@ -22,7 +17,7 @@ Route::post('logout', [UsuarioController::class, 'logout'])->name('usuario.logou
 
 Route::get('register', [UsuarioController::class, 'showRegisterForm'])->name('usuario.register');
 Route::post('register', [UsuarioController::class, 'register']);
-
+Route::resource('citas', CitaController::class);
 // Rutas de trámites (requieren estar autenticado)
 Route::middleware('auth')->group(function () {
     Route::get('usuario/editar', [UsuarioController::class, 'edit'])->name('usuario.edit');
@@ -36,4 +31,3 @@ Route::middleware('auth')->group(function () {
     Route::get('tramites/{id}', [TramiteController::class, 'show'])->name('tramite.show');
     Route::delete('tramites/{id}', [TramiteController::class, 'destroy'])->name('tramite.destroy');
 });
->>>>>>> 887436c4aaf47beb25fa5479c6f8ba49b90c1f21

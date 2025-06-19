@@ -31,4 +31,9 @@ class Usuario extends Authenticatable
     {
         return $this->hasMany(Tramite::class, 'usuario_id');
     }
+
+    public function citas()
+{
+    return $this->hasMany(Cita::class);
+}
 }

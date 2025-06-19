@@ -37,11 +37,15 @@
             <a href="{{ route('tramite.create') }}" class="btn btn-outline-primary">
                 <i class="bi bi-file-earmark-plus-fill me-1"></i>Crear nuevo trámite
             </a>
-            <a href="{{ route('usuario.edit') }}" class="btn btn-outline-secondary">
-                <i class="bi bi-person-lines-fill me-1"></i>Actualizar usuario
-            </a>
             <a href="{{ route('tramite.pagar') }}" class="btn btn-outline-success">
                 <i class="bi bi-cash-coin me-1"></i>Pagar trámite
+            </a>
+            <!-- Nuevo botón para ir a la sección de Citas -->
+            <a href="{{ route('citas.index') }}" class="btn btn-outline-info">
+                <i class="bi bi-calendar-event me-1"></i>Mis Citas
+            </a>
+            <a href="{{ route('usuario.edit') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-person-lines-fill me-1"></i>Actualizar usuario
             </a>
             <form action="{{ route('usuario.logout') }}" method="POST" class="d-inline">
                 @csrf

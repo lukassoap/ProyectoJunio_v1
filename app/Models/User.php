@@ -45,4 +45,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function citas()
+{
+    return $this->hasMany(Cita::class);
+}
 }

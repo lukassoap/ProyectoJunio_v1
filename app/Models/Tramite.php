@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Tramite extends Model //quiero que esta tabla tenga varios valores foraneos para probar como funciona llamar instancias de otros modelos
 {
     //aqui voy a poner primero los datos del tramite que se ingresaran por el formulario
@@ -32,6 +33,12 @@ class Tramite extends Model //quiero que esta tabla tenga varios valores foraneo
     {
         //return $this->belongsTo(TTipo::class, 'tipo_tramite_id');
         return $this->belongsTo(TTipo::class, 't_tipo_id');
+
+    }
+
+    public function citas()
+    {
+        return $this->hasMany(Cita::class);
     }
 
 }
