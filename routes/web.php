@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::get('tramites', [TramiteController::class, 'index'])->name('tramite.index');
     Route::get('tramites/create', [TramiteController::class, 'create'])->name('tramite.create');
     Route::get('tramites/pagar', [TramiteController::class, 'pagar'])->name('tramite.pagar');
+    Route::get('tramites/metodo-pago', [TramiteController::class, 'metodoPagoForm'])->name('tramite.metodo_pago_form');
+    Route::post('tramites/metodo-pago', [TramiteController::class, 'procesarMetodoPago'])->name('tramite.procesar_metodo_pago');
     Route::post('tramites', [TramiteController::class, 'store'])->name('tramite.store');
     Route::get('tramites/{id}', [TramiteController::class, 'show'])->name('tramite.show');
     Route::delete('tramites/{id}', [TramiteController::class, 'destroy'])->name('tramite.destroy');
