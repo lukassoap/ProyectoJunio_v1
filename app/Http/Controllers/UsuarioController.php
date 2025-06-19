@@ -86,5 +86,42 @@ class UsuarioController extends Controller
         Auth::login($user);
         return redirect()->route('tramite.index');
     }
+    
+    
+    /**
+     * Show the form for editing the authenticated user.
+     */
+    public function edit()
+    {
+        $user = Auth::user();
+        return view('usuario.edit', compact('user'));
+    }
+
+    /**
+     * Update the authenticated user's information.
+     */
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:usuarios,email,' . $user->id],
+            'telefono' => ['nullable', 'string', 'max:20'],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user->nombre = $validated['name'];
+        $user->email = $validated['email'];
+        $user->telefono = $validated['telefono'] ?? null;
+
+        if (!empty($validated['password'])) {
+            $user->password = bcrypt($validated['password']);
+        }
+
+        $user->save();
+
+        return redirect()->route('usuario.edit')->with('success', 'Datos actualizados correctamente.');
+    }
 }
 

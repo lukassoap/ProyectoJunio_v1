@@ -15,6 +15,7 @@ class TTipo extends Model
     ];
     public function tramites()
     {
-        return $this->hasMany(Tramite::class, 'tipo_tramite_id');
+        //return $this->hasMany(Tramite::class, 'tipo_tramite_id');
+        return $this->hasMany(Tramite::class, 't_tipo_id');
     }
 }

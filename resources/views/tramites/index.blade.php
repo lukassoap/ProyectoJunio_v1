@@ -42,9 +42,12 @@
 
     <div class="nav-links">
         <a href="{{ route('tramite.create') }}">Crear nuevo trámite</a>
-        <a href="#">Actualizar usuario</a>
-        <a href="#">Pagar trámite</a>
-        <a href="{{ route('usuario.logout') }}">Cerrar sesión</a>
+        <a href="{{ route('usuario.edit') }}">Actualizar usuario</a>
+        <a href="{{ route('tramite.pagar') }}">Pagar trámite</a>
+        <form action="{{ route('usuario.logout') }}" method="POST" style="display:inline">
+            @csrf
+            <button type="submit" style="background:none;border:none;padding:0;color:#007bff;cursor:pointer">Cerrar sesión</button>
+        </form>
     </div>
 
     @if(session('success'))

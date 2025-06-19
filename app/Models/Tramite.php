@@ -28,9 +28,10 @@ class Tramite extends Model //quiero que esta tabla tenga varios valores foraneo
 
 
 
-    public function ttipos()
+    public function tipo()
     {
-        return $this->belongsTo(TTipo::class, 'tipo_tramite_id');
+        //return $this->belongsTo(TTipo::class, 'tipo_tramite_id');
+        return $this->belongsTo(TTipo::class, 't_tipo_id');
     }
 
 }

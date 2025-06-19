@@ -19,8 +19,11 @@ Route::post('register', [UsuarioController::class, 'register']);
 
 // Rutas de trámites (requieren estar autenticado)
 Route::middleware('auth')->group(function () {
+    Route::get('usuario/editar', [UsuarioController::class, 'edit'])->name('usuario.edit');
+    Route::post('usuario/editar', [UsuarioController::class, 'update'])->name('usuario.update');
     Route::get('tramites', [TramiteController::class, 'index'])->name('tramite.index');
     Route::get('tramites/create', [TramiteController::class, 'create'])->name('tramite.create');
+    Route::get('tramites/pagar', [TramiteController::class, 'pagar'])->name('tramite.pagar');
     Route::post('tramites', [TramiteController::class, 'store'])->name('tramite.store');
     Route::get('tramites/{id}', [TramiteController::class, 'show'])->name('tramite.show');
     Route::delete('tramites/{id}', [TramiteController::class, 'destroy'])->name('tramite.destroy');

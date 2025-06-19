@@ -29,6 +29,19 @@ class TramiteController extends Controller
     }
 
     /**
+     * Show the payment selection page for the user's trámites.
+     */
+    public function pagar()
+    {
+        $tramites = Tramite::where('usuario_id', Auth::id())
+            ->where('pagado', false)
+            ->with('tipo')
+            ->get();
+
+        return view('tramites.pagar', compact('tramites'));
+    }
+
+    /**
      * Store a newly created trámite in storage.
      */
     public function store(Request $request)
@@ -73,4 +86,5 @@ class TramiteController extends Controller
         $tramite->delete();
         return redirect()->route('tramite.index')->with('success', 'Trámite eliminado correctamente.');
     }
+
 }
