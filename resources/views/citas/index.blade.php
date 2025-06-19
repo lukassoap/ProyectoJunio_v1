@@ -25,7 +25,7 @@
       <a href="{{ route('citas.create') }}" class="btn btn-outline-primary">
         <i class="bi bi-plus-circle me-1"></i>Nueva Cita
       </a>
-      <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
+      <a href="{{ route('tramite.index') }}" class="btn btn-outline-secondary">
         <i class="bi bi-arrow-left-circle me-1"></i>Volver
       </a>
     </div>
