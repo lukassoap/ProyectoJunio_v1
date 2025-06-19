@@ -55,7 +55,7 @@ class CitaController extends Controller
 
     public function edit(Cita $cita)
     {
-        $tramites = Tramite::all();
+        $tramites = auth()->user()->tramites()->orderBy('titulo')->get();
         return view('citas.edit', compact('cita', 'tramites'));
     }
 
